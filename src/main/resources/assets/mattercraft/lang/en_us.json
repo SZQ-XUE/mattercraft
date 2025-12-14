@@ -1,0 +1,14 @@
+{
+  "itemGroup.mattercraft": "MatterCraft",
+  "block.mattercraft.example_block": "Example Block",
+  "item.mattercraft.example_item": "Example Item",
+
+  "mattercraft.configuration.title": "MatterCraft Configs",
+  "mattercraft.configuration.section.mattercraft.common.toml": "MatterCraft Configs",
+  "mattercraft.configuration.section.mattercraft.common.toml.title": "MatterCraft Configs",
+  "mattercraft.configuration.items": "Item List",
+  "mattercraft.configuration.logDirtBlock": "Log Dirt Block",
+  "mattercraft.configuration.magicNumberIntroduction": "Magic Number Text",
+  "mattercraft.configuration.magicNumber": "Magic Number",
+  "itemGroup.mattercraft_building_blocks": "MatterCraft Building"
+}
