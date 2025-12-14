@@ -1,10 +1,6 @@
 package com.szqxue.mattercraft;
 
-import com.google.common.eventbus.Subscribe;
-import com.szqxue.mattercraft.data.ModBlockLootTablesProvider;
-import com.szqxue.mattercraft.data.ModBlockTagsProvider;
-import com.szqxue.mattercraft.data.ModRecipesProvider;
-import net.minecraft.core.Holder;
+import com.szqxue.mattercraft.data.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -31,6 +27,26 @@ public class MatterCraftDataGenerator {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
+        generator.addProvider(event.includeServer(),
+                new LootTableProvider(packOutput, Collections.emptySet(),
+                        List.of(new LootTableProvider.SubProviderEntry(
+                                ModBlockLootTablesProvider::new,
+                                LootContextParamSets.BLOCK)),
+                        lookupProvider));
+        generator.addProvider(event.includeServer(),new ModRecipesProvider(packOutput, lookupProvider));
+        ModBlockTagsProvider modBlockTagsProvider = new ModBlockTagsProvider(packOutput, lookupProvider, MatterCraft.MODID, existingFileHelper);
+        generator.addProvider(event.includeServer(), modBlockTagsProvider);
+        generator.addProvider(event.includeServer(),
+                new ModItemTagsProvider(packOutput, lookupProvider,
+                        modBlockTagsProvider.contentsGetter(),MatterCraft.MODID,existingFileHelper));
+
+        // This is for client DataGenerator
+        generator.addProvider(event.includeClient(),
+                new ModItemModelsProvider(packOutput, MatterCraft.MODID,existingFileHelper));
+        generator.addProvider(event.includeClient(),
+                new ModBlockStateProvider(packOutput, MatterCraft.MODID,existingFileHelper));
+        generator.addProvider(event.includeClient(),new ModZhCnLangProvider(packOutput,MatterCraft.MODID,"zh_cn"));
+        generator.addProvider(event.includeClient(),new ModEnUsLangProvider(packOutput,MatterCraft.MODID,"en_us"));
 
     }
 }

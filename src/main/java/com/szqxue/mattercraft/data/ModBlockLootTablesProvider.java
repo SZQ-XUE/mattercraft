@@ -5,7 +5,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -24,9 +24,12 @@ import java.util.Set;
  * @author SZQ23
  */
 public class ModBlockLootTablesProvider extends BlockLootSubProvider {
-    protected ModBlockLootTablesProvider(Set<Item> explosionResistant, FeatureFlagSet enabledFeatures, HolderLookup.Provider registries) {
-        super(explosionResistant, enabledFeatures, registries);
+
+
+    public ModBlockLootTablesProvider(HolderLookup.Provider registries) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registries);
     }
+
 
     @Override
     protected void generate() {
@@ -38,7 +41,7 @@ public class ModBlockLootTablesProvider extends BlockLootSubProvider {
                 this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         return this.createSilkTouchDispatchTable(
                 block,
-                (LootPoolEntryContainer.Builder<?>)this.applyExplosionDecay(
+                this.applyExplosionDecay(
                         block,
                         LootItem.lootTableItem(item)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)))
