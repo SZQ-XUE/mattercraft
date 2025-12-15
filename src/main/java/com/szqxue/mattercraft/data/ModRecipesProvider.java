@@ -1,11 +1,10 @@
 package com.szqxue.mattercraft.data;
 
+import com.szqxue.mattercraft.init.Block.ModBlocks;
+import com.szqxue.mattercraft.init.Item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
@@ -25,10 +24,20 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
     @Override
     protected void buildRecipes(@NotNull RecipeOutput recipeOutput) {
         super.buildRecipes(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.SPACE_GEM_BLOCK.get())
+                .define('S', ModItems.SPACE_GEM.get())
+                .pattern("SSS")
+                .pattern("SSS")
+                .pattern("SSS")
+                .unlockedBy("has_item", has(ModItems.SPACE_GEM.get()))
+                .save(recipeOutput);
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ModItems.SPACE_GEM.get(),9)
+                .requires(ModItems.SPACE_GEM_BLOCK.get())
+                .unlockedBy("has_item", has(ModItems.SPACE_GEM_BLOCK.get()))
+                .save(recipeOutput);
     }
-    // 添加同结果的熔炼和熔炼来源
-    // public static final List<ItemLike> ORES = List.of(ModItems.EXAMPLE_ITEM);
+    //public static final List<ItemLike> ORES = List.of(ModItems.EXAMPLE_ITEM);
 
     protected static void oreSmelting(@NotNull RecipeOutput recipeOutput,
                                       List<ItemLike> ingredients, @NotNull RecipeCategory category,

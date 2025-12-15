@@ -1,5 +1,6 @@
 package com.szqxue.mattercraft.data;
 
+import com.szqxue.mattercraft.init.Item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -14,6 +15,7 @@ public class ModItemModelsProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        basicItem(ModItems.SPACE_GEM.get());
 
     }
 }

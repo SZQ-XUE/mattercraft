@@ -1,5 +1,6 @@
 package com.szqxue.mattercraft.init;
 
+import com.szqxue.mattercraft.init.Item.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -10,8 +11,6 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import static com.szqxue.mattercraft.MatterCraft.MODID;
-import static com.szqxue.mattercraft.init.Item.ModItems.EXAMPLE_BLOCK_ITEM;
-import static com.szqxue.mattercraft.init.Item.ModItems.EXAMPLE_ITEM;
 
 /**
  * @author SZQ23
@@ -27,20 +26,18 @@ public class ModCreativeTabs {
                     //The language key for the title of your CreativeModeTab
             .title(Component.translatable("itemGroup.mattercraft"))
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
+            .icon(() -> ModItems.SPACE_GEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                // Add the example item to the tab. For your own tabs, this method is preferred over the event
-                output.accept(EXAMPLE_ITEM.get());
+                output.accept(ModItems.SPACE_GEM.get());
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MATTERCRAFT_BUILDING_BLOCKS =
             CREATIVE_MODE_TABS.register("mattercraft_building_blocks", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.mattercraft_building_blocks"))
-            .withTabsAfter(CreativeModeTabs.COMBAT)
-            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
+            .withTabsBefore(CreativeModeTabs.COMBAT)
+            .icon(() ->  ModItems.SPACE_GEM_BLOCK.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                // Add the example item to the tab. For your own tabs, this method is preferred over the event
-                output.accept(EXAMPLE_ITEM.get());
+                output.accept( ModItems.SPACE_GEM_BLOCK.get());
             }).build());
 
     public static void register(IEventBus eventBus) {
@@ -56,7 +53,7 @@ public class ModCreativeTabs {
     private static void addCreative(BuildCreativeModeTabContentsEvent event) {
         // Add the example block item to Building Blocks tab
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(EXAMPLE_BLOCK_ITEM);
+            //event.accept(ModItems.SPACE_GEM.get().getDefaultInstance());
         }
     }
 }

@@ -33,7 +33,7 @@ public class ModBlockLootTablesProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-
+        dropSelf(ModBlocks.SPACE_GEM_BLOCK.get());
     }
 
     protected LootTable.Builder createMultiDropTable(Block block, Item item,float min, float max) {
